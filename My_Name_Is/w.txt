@@ -1,0 +1,18 @@
+ 13:07:05 up 17 days, 19:40, 16 users,  load average: 0.10, 0.18, 0.47
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+jmcmulle pts/0    ip-131-123-181-1 09:25    3:37m  0.15s  0.15s -bash
+lucc     pts/1    lu.cs.kent.edu   09:26    2:34m  0.18s  0.18s -csh
+rheschel pts/4    ip-131-123-182-1 12:33    2:07   0.19s  0.19s -bash
+bvencel           131.123.42.215:0 13:04    9:09m  1:09m  0.05s pam: gdm-passwo
+myuan    pts/2    131.123.41.100:0 09:27    3:38m 10.16s  0.03s bash
+myuan    pts/3    131.123.41.100:0 09:28    3:38m  0.03s  0.03s bash
+cwiggins pts/5    ip-131-123-181-1 12:34    0.00s  0.31s  0.02s w
+dmilton  pts/6    lab214.labs.cs.k 12:48    0.00s  0.12s  0.12s -bash
+vstepona pts/7    lab207.labs.cs.k 13:06   15.00s  0.06s  0.06s -bash
+bhartung pts/9    lab221.labs.cs.k 13:01    5:48   0.05s  0.05s -bash
+msweet   pts/11   131.123.42.213:0 12:37   29:09   0.01s  0.01s bash
+dmilton  pts/12   131.123.42.214:0 12:37    7:58   0.11s  0.02s svn co http://c
+msweet   pts/15   lab213.labs.cs.k 12:49    1.00s  0.10s  0.10s -bash
+mstriege pts/13   lab208.labs.cs.k 12:59    5:25   0.10s  0.10s -bash
+mstonema pts/16   lab209.labs.cs.k 12:59    3:21   0.08s  0.08s -bash
+mkaufman pts/17   lab216.labs.cs.k 12:59   10.00s  0.09s  0.09s -bash
