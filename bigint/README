@@ -1,0 +1,13 @@
+Do I even really need to explain this to anyone looking at this? I am almost
+pretty certain that anyone who is a Computer programmer knows what bigint. But I
+guess for those of you who don't I will explain.
+
+The bigint data type is used to store numbers lager than what the default int
+c++ can provide. 
+
+Be Warned some of the files in are not mine. They are the test files provide by
+the CS Department at my University. I really don't think they will care if they
+appear here. They are only files that contain assertions to make that the
+program works which it does. 
+
+Well that is all I want to say for now. 
