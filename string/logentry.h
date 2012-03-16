@@ -21,22 +21,29 @@
 #include "string.h" 
 
 ////////////////////////////////////////////////////////////
-class Date { 
+class Date {
+	friend std::ostream& operator<<(std::ostream&, const Date);
   public:
             Date() {};
-
+			Date(string, string, int);
+			Date operator=(Date);
   private:
-    String  day, month;
-    int     year;
+    string  day, month;
+    int    year;
 };
 
 ////////////////////////////////////////////////////////////
 class Time {
+	
+	friend std::ostream& operator<<(std::ostream&, const Time);
+
   public:
             Time() {};
+			Time(int, int, int);
+			Time operator=(Time);
 
   private:
-    int     hour, minute, second;
+    int    hour, minute, second;
 };
 
 
@@ -44,18 +51,18 @@ class Time {
 class LogEntry {
 
   friend  std::ostream& operator<<(std::ostream&, const LogEntry);
-
+  
   public:
             LogEntry() {};
-            LogEntry(String);
-
+			LogEntry(string);
+			string operator[](const int)const;
   private:
-    String  host;
+    string  host;
     Date    date;
     Time    time;
-    String  request;
-    String  status;
-    int     number_of_bytes;
+    string  request;
+    string  status;
+    string    number_of_bytes;
 };
 
 
@@ -70,4 +77,4 @@ void                    by_host     (std::ostream&, const std::vector<LogEntry> 
 int                     byte_count  (const std::vector<LogEntry>&);
 
 #endif
-
+                                              

@@ -6,24 +6,25 @@
 #include<iostream>
 #include"string.h"
 #include<vector>
+#include<cstdlib>
 #ifndef CS33001_STRING_CPP_
 #define CS33001_STRING_CPP_ 
 
 string::string()
 {
 	len=0;
-	cap=128;
+	cap=256;
 	ptr=new char[cap];
 	ptr[0]='\0';	
 }  
 
 string::string(const char test[])
 {	
-	cap=128;
+	cap=256;
     ptr=new char[cap];
 	
 	int i=0;
-	while(test[i]!='\0')
+	while(test[i]!='\0')  //loop fills ptr with elements from the c-string
 	{
     ptr[i]=test[i];
 	++i;
@@ -42,7 +43,7 @@ int string::length()const
 
 string::string(char test)
 {
-	cap=128;
+	cap=256;
 	ptr=new char[cap];
 	ptr[0]=test;
 	ptr[1]='\0';
@@ -69,7 +70,7 @@ string::string(const string& actual)
 	
 	ptr=new char[cap];
 	
-	for(int i=0;i<len;++i)
+	for(int i=0;i<len;++i)  //loops actuals elements over to a new string.
 		ptr[i]=actual.ptr[i];
 	
 	ptr[len]='\0';
@@ -142,16 +143,17 @@ bool string::operator==(const string& rhs) const
 {
 
 	int i=0;
-	while(ptr[i]!=0){
-		if(ptr[i]!=rhs.ptr[i])
+	while(ptr[i]!=0)          //loop is used to see if elements in two
+	{                         //strings are equal. only goes until ptr hits the
+		if(ptr[i]!=rhs.ptr[i]) //null terminator. 
 			return false;
 		++i;
 	}
 
-	if(rhs.ptr[i]==0)
-		return true;
-	else
-		return false;
+	if(rhs.ptr[i]==0)  //used after loop exit to see if rhs in 
+		return true;   //same position as ptr is equal to null 
+	else               //terminator. if it is then returns true.
+		return false;  //else returns false.
 
 }
 
@@ -283,7 +285,7 @@ string string::operator+(const char test[])const{
 string operator+(const char lhs[], const string& rhs) 
 {
 	string tmp(lhs);
-return(tmp+rhs);
+    return(tmp+rhs);
 }
 
 string string::operator+(const char ch)const
@@ -375,24 +377,15 @@ int string::findchar(const string& test, int pos)const
 
 std::istream& operator>>(std::istream& ins, string& rhs)
 {
-	char temp;
 	char tmp[200];
-		int i=0;
-	ins>>temp;
-	while(temp!= '.')
-	{
-		tmp[i]=temp;
-		ins>>temp;
-		++i;
-	} 
-	tmp[i]=0;
-            rhs=string(tmp);
+	ins.getline(tmp, 200);
+	rhs=string(tmp);		
 	return ins;
 }
 
 std::ostream& operator<<(std::ostream& outs, const string& rhs)
 {
-	int i=0;
+	int i=0;                                                
 	while(rhs.ptr[i]!=0)
 	{
 		outs<<rhs.ptr[i];
@@ -433,11 +426,28 @@ std::vector<string> string::split(const char n) const
 			++i;
 		}
 	}
+	result.ptr[i]='\0';
+	result.len=i;
 	vec.push_back(result);
 	
 
 	
 	return vec;
-} 
+}
+
+int string::atoint()const
+{
+  // char tmp[20];
+  // int i =0;
+   //int result;
+   //while(ptr[i]!='\0')
+	//{
+	  //  tmp[i]=ptr[i];
+	   // ++i;
+   // }
+   
+   //result=atoi(ptr);
+   return atoi(ptr);
+}
 
 #endif 

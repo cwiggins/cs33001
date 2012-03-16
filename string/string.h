@@ -61,6 +61,8 @@ public:
 	string& operator=(const string&);
 	
    std::vector<string> split(const char)const;
+   
+   int atoint()const;
 	
 private:
 	char *ptr;

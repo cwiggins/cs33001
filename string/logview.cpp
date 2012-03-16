@@ -17,12 +17,12 @@
 #include "logentry.h"
 
 ////////////////////////////////////////////////////////////
-void output_usage_and_exit(const char cmd[], const std::vector<String>& opts);
+void output_usage_and_exit(const char cmd[], const std::vector<string>& opts);
     
 ////////////////////////////////////////////////////////////
 int main(int argc, char *argv[]) {
     // Options
-    std::vector<String> opt(3);
+    std::vector<string> opt(3);
     opt[0] = "all";
     opt[1] = "bytes";
     opt[2] = "host";
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     // Open file, quit if open fails
     std::ifstream in(argv[2]);
     if (!in)
-        { std::cerr << "Couldn't open " << argv[1] << "\n"; exit(2); }
+        { std::cerr << "Couldn't open " << argv[2] << "\n"; exit(2); }
 
     // Process the log file
     std::vector<LogEntry> log_entries = parse(in);
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     in.close();
 
     // Handle the specified option
-    String option(argv[2]);
+    string option(argv[1]);
     if (option == opt[0]) {
         // Output everything
         output_all(std::cout, log_entries);
@@ -71,11 +71,11 @@ int main(int argc, char *argv[]) {
 }
 
 ////////////////////////////////////////////////////////////
-void output_usage_and_exit(const char cmd[], const std::vector<String>& opt)
+void output_usage_and_exit(const char cmd[], const std::vector<string>& opt)
 {
     // Output usage message
     std::cerr << "Usage: " << cmd << " [";
-       for (std::vector<String>::size_type idx = 0; idx < opt.size() - 1; ++idx)
+       for (std::vector<string>::size_type idx = 0; idx < opt.size() - 1; ++idx)
            std::cerr << opt[idx] << " | ";
     std::cerr << opt[opt.size() - 1] << "] log_file\n";
 

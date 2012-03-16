@@ -17,10 +17,23 @@ int main()
 		
 		//setup fixture
 		int loc=str1.findstr("love", 0);
+	
 		result=str1.substr(loc,4);
 		
 		
 		//verify
+		assert(str1=="Make love not war");
+		assert(result=="love");
+	}
+	
+	{
+		string str1("Make love not war"), result;
+		
+		int loc = str1.findstr("love", 3);
+		
+		result=str1.substr(loc,4); 
+	
+		
 		assert(str1=="Make love not war");
 		assert(result=="love");
 	}

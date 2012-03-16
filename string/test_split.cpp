@@ -29,12 +29,14 @@ int main()
 		
 		std::vector<string> vec = str1.split(' ');
 		
-		for(int i =0;i<5;++i)
-			std::cout<<vec[i]<<std::endl;
 		
 		assert(str1=="AAAA BBBB CCCC EEEE FFFF");
 		assert(vec.size() == 5);
-		assert(vec[0]=="AAAA");
+		assert(vec[0]=="AAAA"); 
+		assert(vec[1]=="BBBB");
+		assert(vec[2]=="CCCC");
+		assert(vec[3]=="EEEE");
+		assert(vec[4]=="FFFF");
 		
 	}
 }
