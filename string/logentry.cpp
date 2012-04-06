@@ -4,7 +4,7 @@
 //       
 // Version:     1.0
 // Date:                   
-// Author:      
+// Author:Curtiss J Wiggins
 //
 // Description: Class implementation for a log entry.
 //
@@ -19,14 +19,15 @@
 #include "logentry.h"
 
 ////////////////////////////////////////////////////////// 
-// PRE:  
-// POST: 
+// PRE:valid string object  
+// POST:parses the string and constructs the LogEntry object 
 //
 LogEntry::LogEntry(string s) {
     // ...
     std::vector<string> vec = s.split(' ');
 	if(vec.size()<10)
-	{
+	{   /*  used if the resulting vec from above is less than 10 in size. Sets the
+	        LogEntry object to blanks and zeros for a blank entry.*/
 		string tdate(" "), tmonth(" ");
 		host=string(" ");
 		date=Date(tdate, tmonth, 0);
@@ -39,17 +40,20 @@ LogEntry::LogEntry(string s) {
     else
 	{
 	string tdate, ttime;
-	
+	/*  Locates the date/time in the string and substrings it out for parsing to
+	 *  construct the proper Date and Time Objects. The first block of code
+	 *  constructs the Date Object. The second block of code constructs the Time
+	 *  Object and the third constructs the LogEntry Object.*/
 	int loc=vec[3].findstr(':', 0);
 	tdate=vec[3].substr(1,loc-1);
 	std::vector <string> tempdate =tdate.split('/');
-    int tyear=tempdate[2].atoint();
+    int tyear=tempdate[2].atoi();
 		
 	ttime=vec[3].substr(loc+1, 8);
 	std::vector<string> temptime=ttime.split(':');
-	int thr=temptime[0].atoint();
-	int tmin=temptime[1].atoint();
-	int tsec=temptime[2].atoint();
+	int thr=temptime[0].atoi();
+	int tmin=temptime[1].atoi();
+	int tsec=temptime[2].atoi();
 	
 	host=vec[0];
 	date=Date(tempdate[0], tempdate[1], tyear);
@@ -57,29 +61,13 @@ LogEntry::LogEntry(string s) {
 	request=vec[5] + " " + vec[6];
 	status=vec[8];
 	number_of_bytes=vec[9];
-   /* std::cout<<host<<std::endl;
-	std::cout<< date << std::endl;
-	std::cout<< time << std::endl;
-	std::cout<< request << std::endl;
-	std::cout<< status << std::endl;
-	std::cout<< number_of_bytes<<std::endl; */
    }
 }
 
-string LogEntry::operator[](const int value)const
-{
-	if(value==0)
-		return host;
-	
-	if(value==9)
-		return number_of_bytes; 
-	
-	return request;
-}
 
 ////////////////////////////////////////////////////////// 
-// PRE:  
-// POST: 
+// PRE: valid input in file or keyboard 
+// POST: return and vector of logentries.
 //
 std::vector<LogEntry> parse(std::istream& in) {
     string temp, temp2;
@@ -95,7 +83,50 @@ std::vector<LogEntry> parse(std::istream& in) {
     return result;
 }
 
+//just a simply function to return the hostname in a logentry.
+//ex) 132.345.657.11
+string LogEntry::get_host()const
+{
+	return host;
+}
 
+//returns the date of a LogEntry object
+//ex) 19 Sep 2004
+Date LogEntry::get_date()const
+{
+	return date;
+}
+
+//returns the time in a LogEntry object.
+//ex) 12:07:09
+Time LogEntry::get_time()const
+{
+	return time;
+}
+
+//returns the request in a LogEntry object
+//ex) "GET /~curtiss/home.jpg
+string LogEntry::get_request()const
+{
+	return request;
+}
+
+//Returns the status in a LogEntry Object
+//ex) 200 or 404 
+string LogEntry::get_status()const
+{
+	return status;
+}
+
+//returns the byte count of whatever was accessed 
+//ex) 234  bytes
+int LogEntry::get_bytes()const
+{
+	return number_of_bytes.atoi();
+}
+
+//Pre valid logentry object 
+//Post: outputs the contents of a logentry object.
 std::ostream& operator<<(std::ostream& out, const LogEntry rhs)
 {   
 	out<<rhs.host<<" || ";
@@ -107,8 +138,8 @@ std::ostream& operator<<(std::ostream& out, const LogEntry rhs)
 	return out;
 }
 ////////////////////////////////////////////////////////// 
-// PRE:  
-// POST: 
+// PRE:vaild logentry object and vector
+// POST:just outputs the contents to the screen 
 //
 void output_all(std::ostream& out, const std::vector<LogEntry> & rhs) {
 	int j=rhs.size();
@@ -118,29 +149,29 @@ void output_all(std::ostream& out, const std::vector<LogEntry> & rhs) {
 }
 
 ////////////////////////////////////////////////////////// 
-// PRE:  
-// POST: 
+// PRE:valid logentry object and vector  
+// POST: outputs the hostname.
 //
 void by_host(std::ostream& out, const std::vector<LogEntry>& rhs) {
    
 	int j=rhs.size();
 	
 	for(int i=0; i<j; ++i)
-		out<<"Host: "<< rhs[i][0]<<std::endl;
+		out<<"Host: "<< rhs[i].get_host()<<std::endl;
 	
+
 }
 
 ////////////////////////////////////////////////////////// 
-// PRE:  
-// POST: 
+// PRE: valid logentry object and vector 
+// POST: outputs the total bytes sent and recieved
 //
 int byte_count(const std::vector<LogEntry> &rhs) {
 	
 	int result=0;
 	int j=rhs.size();
-	
 	for(int i=0;i<j; ++i)
-		result=result + rhs[i][9].atoint();
+		result=result + rhs[i].get_bytes();
     
 	return result;
 }   

@@ -55,14 +55,22 @@ class LogEntry {
   public:
             LogEntry() {};
 			LogEntry(string);
-			string operator[](const int)const;
+			string get_host()const;
+			Date get_date()const;
+			Time get_time()const;
+			string get_request()const;
+			string get_status()const;
+			int get_bytes()const;
+			
+				
+				
   private:
     string  host;
     Date    date;
     Time    time;
     string  request;
     string  status;
-    string    number_of_bytes;
+    string number_of_bytes;
 };
 
 

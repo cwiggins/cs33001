@@ -6,7 +6,7 @@
 #include<iostream>
 #include"string.h"
 #include<vector>
-#include<cstdlib>
+
 #ifndef CS33001_STRING_CPP_
 #define CS33001_STRING_CPP_ 
 
@@ -132,10 +132,9 @@ void string::reallocate(int n_size)
 	 swap(temp);
 }
 
-string& string::operator=(const string& rhs)
+string& string::operator=(string rhs)
 {
-	string tmp(rhs);
-    swap(tmp);
+    swap(rhs);
 	return *this;
 }
 
@@ -435,19 +434,34 @@ std::vector<string> string::split(const char n) const
 	return vec;
 }
 
-int string::atoint()const
+int string::atoi()const
 {
-  // char tmp[20];
-  // int i =0;
-   //int result;
-   //while(ptr[i]!='\0')
-	//{
-	  //  tmp[i]=ptr[i];
-	   // ++i;
-   // }
-   
-   //result=atoi(ptr);
-   return atoi(ptr);
+	int i = 0;
+	int value = 0;
+	while(isdigit(ptr[i])){
+		value *=10;
+		value += (int) (ptr[i]-'0');
+		++i;
+	}
+	return value;
+}
+
+
+string  string::getline(std::istream& in, const char delim)
+{
+	char next;
+	int i = 0;
+	in.get(next);
+	while(next!=delim && !in.eof()){
+		ptr[i]=next;
+		in.get(next);
+		++i;
+	}
+	len=i;
+	ptr[len]='\0'; 
+	
+	return *this;
+	
 }
 
 #endif 

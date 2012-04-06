@@ -9,11 +9,11 @@
 
 bigint::bigint(int num)
 //sets bigint equal to provided int.
-{
-	int i=0;
-	
-	for(int k=0;k<MAX_SIZE;++k) { digit[k] = 0; }
+{   
+	for(int i = 0; i<MAX_SIZE; ++i)
+		digit[i]=0;
 
+	int i = 0;
 	while(num!=0){
 		digit[i]=num %10;
 		num/=10;
@@ -36,6 +36,7 @@ bigint::bigint()
 bigint::bigint(const char num[])
 //set bigint equal to a char array and then converts it into an int.
 {
+	
 	for(int k=0;k<MAX_SIZE;++k)
 	digit[k]=0;
 	
@@ -83,16 +84,16 @@ bool bigint::operator== (const char test[]) const
 	return(*this == temp);
 }	
 
-std::ostream& operator<<(std::ostream& out, bigint x)
+std::ostream& operator<<(std::ostream& out, const bigint& rhs)
 //prints out bigint no more than 80 characters to a line.
 {
 	for(int i=MAX_SIZE-1, j=0;i>=0;--i,++j)
 	{
 		if(j<80)
-			out<<x.digit[i];
+			out<< rhs.digit[i];
 		else
 		{
-			out<<std::endl<<x.digit[i];
+			out<<std::endl<< rhs.digit[i];
 			j=0;
 		}
 	}
@@ -118,9 +119,14 @@ std::istream& operator>>(std::istream& ins, bigint& x)
  return ins;        
 }   
 
-int bigint::operator[](int x)
+int bigint::operator[](int x)const
 {
 	return digit[x];
+}
+
+int& bigint::operator[](int spot)
+{
+	return digit[spot];
 }
 
 bigint bigint::operator+(const bigint& x) const
@@ -149,7 +155,7 @@ bigint bigint::operator+(const bigint& x) const
 	return result;
 }
 
-bigint bigint::operator*(int num)
+bigint bigint::operator*(int num)const
 {
 	int product=0, i=0;
 	bigint result;
@@ -176,7 +182,7 @@ bigint bigint::operator*(int num)
 return result;
 }
 
-bigint bigint::operator*(bigint rhs)
+bigint bigint::operator*(const bigint& rhs)const
 {  	
 	bigint product, sum, tmp;
 
@@ -186,7 +192,7 @@ bigint bigint::operator*(bigint rhs)
 		tmp = product.times_10(i);
 		sum = sum + tmp;
 	}
-   rhs=sum; 
+ 
 
 	return sum;
 }   

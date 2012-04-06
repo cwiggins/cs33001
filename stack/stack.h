@@ -23,23 +23,26 @@
 template <typename T>
 class Stack{
 public:
-	Stack():tos(0){};
-	Stack(const Stack<T>&);
-	~Stack();
+	Stack():tos(0){};//default constructor: sets tos to zero.
+	Stack(const Stack<T>&);//copy constructor: makes a copy of stacks for use in call value functions
+	~Stack();//destructor: deallocates memory used by a stack
 
-	void swap(Stack<T>&);
-	Stack& operator=(Stack<T>);
+	void swap(Stack<T>&);//swaps two stacks: ex) stack a, stack b a.swap(b), a now has b values and b has a values 
+	Stack& operator=(Stack<T>);//assignment operator: assigns *this the value of the stack on right hand side of =.
 	
-	T pop();
-	void push(const T&);
+	T pop();//removes an element from the stack and returns its value. removes the last element put on the stack.
+	void push(const T&);//puts an element on the top of the stack.
 	
-	bool IsFull()const;
-	bool IsEmpty()const{return tos==0;};
+	bool IsFull()const;//checks to see if the stack is full
+	bool IsEmpty()const{return tos==0;};//checks to see if the stack is empty.
 	
 private:
 	Node<T> *tos;
 };
 
+//precondition: That stack of Type T is able to be deallocated.
+//postcondition: deallocates the memory that Stack of Type T was using for use
+//by this program again or by another program.
 template <typename T>
 Stack<T>::~Stack(){
 	

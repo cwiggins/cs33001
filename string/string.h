@@ -10,12 +10,15 @@
 
 class string{
 public:
+	//constructors
 	string(); //default constructor
 	string(const char *); //c-string constructor
 	string(char); //char constructor 
-	string(int);
-    ~string();
-	string(const string&);
+	string(int);//constructs an empty string with specified amount of empty space 
+    ~string();//destructor: deallocates a string
+	string(const string&);//makes a copy of a string
+	
+	//relational operators
 	bool operator==(const string&)const; //compares to see if two strings are equal
 	bool operator==(const char*)const;   //compares to if a string and a c-string are equal
 	bool operator<(const string&)const;  //sees if this is less than a provided string
@@ -55,14 +58,15 @@ public:
 	friend std::istream& operator>>(std::istream&, string&);
 	friend std::ostream& operator<<(std::ostream&, const string&);
 	
-	void swap(string&);
-	void reallocate(int);
+	void swap(string&);//just swaps the pointers of two strings
+	void reallocate(int);//reallocates memory using a specified amount
 	
-	string& operator=(const string&);
+	string& operator=(string );//used for something like string a = string b
 	
-   std::vector<string> split(const char)const;
+   std::vector<string> split(const char)const;//splits a string on specified character and puts the resulting strings into a vector.
    
-   int atoint()const;
+   int atoi()const;//converts a string into an interger by using its ascii value.
+   string  getline(std::istream&, const char);//to retrieve input for a string a whole line at a time.
 	
 private:
 	char *ptr;

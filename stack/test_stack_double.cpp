@@ -28,5 +28,33 @@ int main()
 		j=test.pop();
 		assert(j==12.34);
 	}
+	
+	{
+		Stack<double> test;
+		
+		assert(test.IsEmpty());
+	}
+	
+	{
+		Stack<double> test;
+		
+		test.push(13.4);
+		test.push(12.89);
+		
+		assert(test.pop()==12.89);
+		assert(test.pop()==13.4);
+	}
+	
+	{
+		Stack<double> test;
+		
+		test.push(123.89);
+		test.push(2345.609);
+		test.push(1.9192987);
+		
+		assert(test.pop()==1.9192987);
+		assert(test.pop()==2345.609);
+		assert(test.pop()==123.89);
+	}
 }
 
