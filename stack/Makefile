@@ -9,6 +9,7 @@ TEST_1 =test_stack_int test_stack_double test_stack_string
 TEST_2 =test_stack_float 
 TEST_3 =
 POSTF = post_fix
+ASSEM = assem_bler
  #=====================================================================================
 #-------------------------------------------------------------------------------
 STRING_DIR = ../string/
@@ -19,7 +20,8 @@ msg:
 	@echo '   tests'
 	@echo '   clean'
 	@echo ' postfix'
-
+	@echo ' assembler'
+	
 #===========================================================================
 # Compile string.o
 string.o:	${STRING_DIR}string.h  ${STRING_DIR}string.cpp
@@ -41,6 +43,16 @@ test_%.o: ${STRING_DIR}string.h stack.h test_%.cpp
 postfixcon.o: ${STRING_DIR}string.h stack.h postfixcon.h
 	${CPP} ${CPP_FLAGS} ${INCLUDE_OPT} -c postfixcon.cpp
 
+
+#===========================================================================
+# make assembler
+#===========================================================================
+assem_bler: string.o assembler.o postfixcon.o
+	${CPP} string.o assembler.o postfixcon.o -o assem_bler
+	
+assembler.o: ${STRING_DIR}string.h stack.h assembler.cpp postfixcon.h
+	${CPP} ${CPP_FLAGS} ${INCLUDE_OPT} -c assembler.cpp
+
 #===========================================================================
 # make postfix
 # =========================================================================
@@ -53,7 +65,17 @@ postfix.o: ${STRING_DIR}string.h stack.h postfix.cpp postfixcon.h
 	${CPP} ${CPP_FLAGS} ${INCLUDE_OPT} -c postfix.cpp
 
 #===========================================================================
-# Run test programs
+# Run test programs 
+
+assembler: ${TEST_1} ${TEST_2} ${TEST_3} ${POSTF} ${ASSEM}
+	./test_stack_double
+	./test_stack_float
+	./test_stack_int
+	./test_stack_string
+	./post_fix data3-1.txt result.txt
+	./post_fix data3-1.txt
+	./assem_bler data3-1.txt result2.txt
+	./assem_bler data3-1.txt
 
 postfix: ${TEST_1} ${TEST_2} ${TEST_3} ${POSTF}
 	./test_stack_double
