@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<unit xmlns="http://www.sdml.info/srcML/src" xmlns:cpp="http://www.sdml.info/srcML/cpp" xmlns:lit="http://www.sdml.info/srcML/literal" xmlns:op="http://www.sdml.info/srcML/operator" xmlns:type="http://www.sdml.info/srcML/modifier" language="C++" filename="main.cpp"><comment type="block">/*
+ *  ASTree.cpp
+ *  Abstract Syntax Tree
+ *
+ *  Created by Jonathan Maletic on 11/8/11.
+ *  Copyright 2012 Kent State University. All rights reserved.
+ *
+ *  Modified by:
+ *
+ */</comment>
+
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file><lit:literal type="string">"ASTree.hpp"</lit:literal></cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;iostream&gt;</cpp:file></cpp:include>
+<cpp:include>#<cpp:directive>include</cpp:directive> <cpp:file>&lt;fstream&gt;</cpp:file></cpp:include>
+
+<comment type="line">//</comment>
+<comment type="line">// Reads a srcML file into an internal data structure.</comment>
+<comment type="line">// Then prints out the data structure.</comment>
+
+<function><type><name>int</name></type> <name>main</name><parameter_list>(<param><decl><type><name>int</name></type> <name>argc</name></decl></param>, <param><decl><type><name>char</name> <type:modifier>*</type:modifier></type><name><name>argv</name><index>[]</index></name></decl></param>)</parameter_list> <block>{
+    <if>if <condition>(<expr><name>argc</name> <op:operator>&lt;</op:operator> <lit:literal type="number">2</lit:literal></expr>)</condition><then> <block>{
+        <expr_stmt><expr><name><name>std</name><op:operator>::</op:operator><name>cerr</name></name> <op:operator>&lt;&lt;</op:operator> <lit:literal type="string">"Error: Input file name required."</lit:literal> <op:operator>&lt;&lt;</op:operator> <name><name>std</name><op:operator>::</op:operator><name>endl</name></name></expr>;</expr_stmt>
+        <return>return<expr><op:operator>(</op:operator><lit:literal type="number">1</lit:literal><op:operator>)</op:operator></expr>;</return>
+    }</block></then></if>
+
+    <decl_stmt><decl><type><name><name>std</name><op:operator>::</op:operator><name>ifstream</name></name></type> <name>xmlFile</name><argument_list>(<argument><expr><name><name>argv</name><index>[<expr><lit:literal type="number">1</lit:literal></expr>]</index></name></expr></argument>)</argument_list></decl>;</decl_stmt>
+    <decl_stmt><decl><type><name>srcML</name></type> <name>program</name></decl>;</decl_stmt>
+    <expr_stmt><expr><name>xmlFile</name> <op:operator>&gt;&gt;</op:operator> <name>program</name></expr>;</expr_stmt>
+    <expr_stmt><expr><name>xmlFile</name><op:operator>.</op:operator><call><name>close</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    
+    <if>if <condition>(<expr><name>argc</name> <op:operator>==</op:operator> <lit:literal type="number">3</lit:literal></expr> )</condition><then> <block>{
+        <decl_stmt><decl><type><name><name>std</name><op:operator>::</op:operator><name>ofstream</name></name></type> <name>out</name><argument_list>(<argument><expr><name><name>argv</name><index>[<expr><lit:literal type="number">2</lit:literal></expr>]</index></name></expr></argument>)</argument_list></decl>;</decl_stmt>
+        <expr_stmt><expr><name>out</name> <op:operator>&lt;&lt;</op:operator> <name>program</name></expr>;</expr_stmt>
+        <expr_stmt><expr><name>out</name><op:operator>.</op:operator><call><name>close</name><argument_list>()</argument_list></call></expr>;</expr_stmt>
+    }</block></then>
+    <else>else
+        <expr_stmt><expr><name><name>std</name><op:operator>::</op:operator><name>cout</name></name> <op:operator>&lt;&lt;</op:operator> <name>program</name> <op:operator>&lt;&lt;</op:operator> <name><name>std</name><op:operator>::</op:operator><name>endl</name></name></expr>;</expr_stmt></else></if>
+
+	<return>return <expr><lit:literal type="number">0</lit:literal></expr>;</return>
+}</block></function>
+
+
+</unit>
