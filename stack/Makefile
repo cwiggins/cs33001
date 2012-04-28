@@ -95,11 +95,13 @@ tests: ${TEST_1} ${TEST_2} ${TEST_3} ${POSTF}
 #===========================================================================
 # Run memory tests
 
-memtests: ${TEST_1} ${TEST_2} ${TEST_3} 
+memtests: ${TEST_1} ${TEST_2} ${TEST_3} ${POSTF} ${ASSEM}
 	valgrind ./test_stack_int 
 	valgrind ./test_stack_double
 	valgrind ./test_stack_string
 	valgrind ./test_stack_float
+	valgrind ./post_fix data3-1.txt result.txt
+	valgrind ./assem_bler data3-1.txt result2.txt
 
 #===========================================================================
 .PRECIOUS: test_%.o string.o
@@ -111,3 +113,4 @@ clean:
 	rm -f test_stack_int
 	rm -f test_stack_string test_stack_float
 	rm -f post_fix
+	rm -f assem_bler

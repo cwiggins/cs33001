@@ -50,7 +50,8 @@ Stack<string> postfix2assembler(std::vector<string>& p){
 
 	int i = 0, j = p.size();
 	string rhs, lhs, op;
-
+    char tmp;
+	int var = 1;
 	while(i<j){
 		if((p[i]=='*') || (p[i]=='+') || (p[i]== '-') || (p[i]== '/')){
 	   
@@ -64,7 +65,8 @@ Stack<string> postfix2assembler(std::vector<string>& p){
 				op = "AD";
 			if(p[i]=='-')
 				op = "SB";
-		
+			tmp = var + '0';
+		     string tmp_var(tmp); 
            if(lhs[0]!='T' && lhs[1]!='M' && lhs[2]!='P'){
 		
 			as.push("LD");
@@ -72,8 +74,8 @@ Stack<string> postfix2assembler(std::vector<string>& p){
 			as.push(op);
 			as.push(rhs);
 			as.push("ST");
-			as.push("TMP");
-			s.push("TMP");
+			as.push("TMP"+tmp_var);
+			s.push("TMP"+tmp_var);
 			
 		   }else{
 			   as.push("LD");
@@ -81,10 +83,10 @@ Stack<string> postfix2assembler(std::vector<string>& p){
 			   as.push(op);
 			   as.push(lhs);
 			   as.push("ST");
-			   as.push("TMP");
-			   s.push("TMP");
+			   as.push("TMP"+tmp_var);
+			   s.push("TMP"+tmp_var);
 		   }
-			
+		   ++var; 
 		}else{
 		    s.push(p[i]);
 			}
